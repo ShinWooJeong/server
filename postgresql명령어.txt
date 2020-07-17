@@ -1,0 +1,95 @@
+//////////////////////////////////////////////////////////////////////////////////////////////////
+alter user server set search_path = 'public' 
+
+SHOW search_path;
+
+set search_path To "public";
+
+SELECT pg_reload_conf();
+//////////////////////////////////////////////////////////////////
+postgreSQL 명령어..?
+
+INSERT INTO location_table (longitude, latitude, location, zoom, pitch, bearing) VALUES ('127.0338', '37.4855', '양재역', '18.1', '60', '158');
+INSERT INTO location_table (longitude, latitude, location, zoom, pitch, bearing) VALUES ('127.0270', '37.5000', '강남대로', '18', '60', '158');
+
+
+UPDATE location_table SET 
+longitude = '111', latitude = '222', zoom = '17', pitch = '70', bearing = '23' WHERE location = 'test'
+ALTER TABLE location_table ALTER COLUMN location...
+
+
+DELETE FROM location_table where location=''
+
+DELETE FROM location_table where latitude='37.5296'
+
+
+
+SELECT * FROM location_table
+
+SELECT id FROM location_table WHERE location = 'aapaa'    // 로케이션 컬럼의 값이 'aapaa' 인 location_table 테이블의 id 컬럼 값을 줘 
+
+SELECT * FROM pg_available_extensions;   //이건 나한테 깔려있는 모듈? extensions를 확인하는 명령어
+----------------------------------------------------------------------------------------------------
+
+PK 삭제방법 & 복합키 생성:
+    alter table 테이블명 drop primary key; // 먼저 primary key를 drop
+    alter table 테이블명 add constraint 인덱스명 primary key(기본컬럼, 추가컬럼); // 복합 key로 다시 primary key를 만듦.
+만약 primary key가 없다면, 바로 2번줄로 가능
+그러나 primary key가 이미 있다면 곧바로 추가는 안됨.
+
+
+그냥 PK를 만들기: add
+    alter table 테이블명 add primary key (컬럼이름)
+    ALTER TABLE [location_schema].[location_table_past] ADD CONSTRAINT [loc_id] PRIMARY KEY (location);
+                    스키마이름          테이블이름                       PK이름..?              기본컬럼이름
+단, 데이터가 들어가 있는 경우에는 데이터간에 중복이 있어서는 안된다. 
+
+
+프라이머리 키를 지우기: drop   
+    alter table 테이블명 drop primary key;
+
+
+데이터들의 위치를 바꾸기: modify///////////////////////// postgreSQL은 컬럼 위치를 변경시키는 게 없음......
+    alter table 테이블명 modyfy '칼럼이름' '데이터형' [after | first '기준칼럼'];
+기준칼럼보다 앞이나 뒤에 오게 된다.
+대신 새로운 테이블을 생성해서 옮기는 작업을 해줘야함.
+    1. 기존 테이블 이름 변경
+        > alter table 기존테이블명 rename to 변경테이블명; 
+    2. 컬럼 위치 변경하여 새로운 테이블 생성
+        > create table tablename (column defs go here);
+    3. insert 쿼리 실행하여 새로운 테이블로 데이터 이동
+        > insert into tablename (col1, col2, col3) select col1, col2, col3 from oldtable;
+
+
+테이블 생성 Syntax : 
+
+CREATE TABLE table_name ( [
+   column_name1 data_type [ COLLATE collation ] [ column_constraint [ ... ] ]
+  column_name2 data_type [ COLLATE collation ] [ column_constraint [ ... ] ]
+  column_name3 data_type [ COLLATE collation ] [ column_constraint [ ... ] ]
+  …
+] )
+
+            CREATE TABLE films (
+                code        char(5) NOT NULL,
+                title       varchar(40),
+                did         integer,
+                date_prod   date,
+                kind        varchar(10),
+                len         interval hour to minute,
+                CONSTRAINT production UNIQUE(date_prod)   /// production 테이블에서 4 번쨰 칼럼인 data_prod 컬럼이 중복 없이 유일한 UNIQUE조건을 만족해야함.
+            );
+                ALTER TABLE [location_schema].[location_table_past] ADD CONSTRAINT ["uniqueLocationName"] UNIQUE [(location)];
+                                스키마 이름         테이블이름                          무슨이름이지...?             기본컬럼이름 괄호에 넣어줘야함.
+                            
+
+
+
+칼럼의 내용을 바꾸기: change
+    alter table 테이블명 change '원래칼럼이름' '바꿀칼럼이름' '조건들(ex:데이터형이나 디폴트값);
+    ex:  alter table test_table change ide id varchar(10) not null default 0;
+
+
+
+PostgreSQL constrain(제약조건)
+    https://yeobi27.tistory.com/entry/PostgreSQL-%EC%A0%9C%EC%95%BD%EC%A1%B0%EA%B1%B4-ConstraintNOT-NULL-UNIQUE-PRIMARY-KEY%EA%B8%B0%EB%B3%B8%ED%82%A4-FOREIGN-KEY%EC%99%B8%EB%9E%98%ED%82%A4

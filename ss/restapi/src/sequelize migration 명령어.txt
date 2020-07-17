@@ -1,0 +1,14 @@
+
+sequelize migration:create
+// 20160113211643-unnamed-migration.js
+    마이그레이션 생성, 이 모듈은 up()과 down() 메소드를 노출하는데 각 각 마이그레이션과 롤백을 
+    담당한다. up() 함수에 새로운 컬럼을 추가하는 코드를 작성하면, 
+    down() 함수에는 추가한 컬럼을 삭제하는 코드를 작성하는 식이다.
+
+sequelize db:migrate  (--env development)
+    마이그레이션 진행, --env 옵션을 사용하면 디비를 선택가능. development는 디폴트다.
+
+sequelize db:migrate:undo --env development
+    롤백(취소)은 한 단계씩 수행되며, 원하는만큼 실행 하면된다.
+    만약 마이그레이션 롤백이 안되는 등 예외 사항이 발생한다면 이 테이블에 저장된 값을 
+    삭제/추가하면서 문제를 해결할 수 있다.

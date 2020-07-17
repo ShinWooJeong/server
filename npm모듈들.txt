@@ -1,0 +1,58 @@
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+npm i -g express-generator   ==>  프레임워크에 필요한 package.json을 만들어주고 기본 폴더 구조까지 잡아주는 패키지... 일정버전 이상부터는 -g를 해줘야 express 명령어가 먹음.
+
+morgan  ==>   로그 기록을 남기는 모듈
+
+cors   ==>   Cross-Origin Resource Sharing(CORS)는 다른 도메인에서 실행 중인 
+            웹 애플리케이션에서 선택된 자원에 대한 접근 권한을 부여하는 매커니즘입니다.    
+            다른 출처(도메인, 프로토콜 또는 포트)를 가진 자원을 요청 할 때, 웹 프로그램은 cross-origin HTTP 요청을 실행합니다.
+
+npm install dotenv   ==>   Dotenv 를 이용하면 .env 파일에 따로 (시스템)환경변수를 (명시적으로)저장할 수 있다. 
+            그러면 DB나 다른 자신의 정보를 .env 파일에 분리해서, gitignore 파일로 그 정보만 따로 제외하고 공유 할 수 있다 
+            (다른 이유도 분명 있겠지만 현재 나는 이를 위해 사용중이다)  https://velog.io/@ground4ekd/nodejs-dotenv
+
+debug   ==>   노드에서 가장 많이 사용하는 디버깅 모듈.. 로그를 구조적으로 기록할 수 있다는 점에서 console.log 보다 뛰어나다. 
+             장점 두 가지 : 태그를 지정한 로그 함수를 만들 수 있다
+                         : 태그별로 색상을 줘서 로그 식별이 수월하다
+
+npm install -g nodemon   =>   nodemon은 프로젝트 폴더의 파일들을 모니터링하고 있다가 파일이 수정될 경우 자동으로 서버를 리스타트 시켜줍니다. 
+                            nodemon을 위해서 소스에 다른 설정을 추가할 필요도 없기 때문에 상당히 편리하게 사용할 수 있습니다.
+                            npm 1.0이상을 사용할 경우 nodemon은 커맨드라인에서 명령어를 사용할 것이기 때문에 -g 옵션을 붙혀서 글로벌로 설치를 합니다.
+
+npm install --save @babel/polyfill
+npm install --save-dev @babel/core @babel/cli @babel/preset-env @babel/node //이렇게 특이하게 @이를 쓰는 이유는 
+                                버전 7부터 바벨 팩키지들이 @babel이란 네이스페이스 안에 있기 때문
+                                =>   사실 최신 스펙의 자바스크립트는 현재 nodejs 버전에서 모두 지원을 하는 것이 아닙니다. 
+                                따라서 import 구문 같은 경우에는 nodejs 가 어떻게 해석을 해야 하는지 모르는 것입니다.
+                                이걸 nodejs 가 해석할 수 있도록 친절하게 일면 번역 (트랜스파일) 을 해주는 모듈이 있는데요 그게 그토록 유명한 바벨입니다.
+
+
+sequelize-cli   =>   cli 상에서 sequelize 명령어를 사용할 수 있게 해주는 등 여러가지 편의기능을 제공하기 때문에 sequelize 를 사용하시는 분들이라면 필수로 설치하셔야 하는 패키지입니다.
+sequelize               cli에서 알 수 있듯이 윈도우의 cmd나 Mac의 Terminal에서 Sequelize 관련 명령어를 쓸 수 있게 해주는 도구입니다.
+                        대표적으로 Model을 만들거나 Migration이나 Seed를 할 때 사용합니다.
+
+npm install --save pg pg-hstore   =>   이건 사용하는 디비(우리는 PostgreSQL)에 따른 모듈이고 위에꺼는 노드 기반에서
+                                        디비를 제어?할 수 있게 해주는 모듈 흔히 ORM(object-relational-mapping)으로 "가상 객체 데이터베이스 구축"하는 방법임.
+
+
+
+[ WITH [ RECURSIVE ] with_query [, ...] ]
+UPDATE [ ONLY ] table_name [ * ] [ [ AS ] alias ]
+    SET { column_name = { expression | DEFAULT } |
+          ( column_name [, ...] ) = ( { expression | DEFAULT } [, ...] ) } [, ...]
+    [ FROM from_list ]
+    [ WHERE condition | WHERE CURRENT OF cursor_name ]
+    [ RETURNING * | output_expression [ [ AS ] output_name ] [, ...] ]
+
+
+
+
+DELETE FROM location_table where location=test;
+
+
+
+
+출처: https://backback.tistory.com/329 [Back Ground]
+
+//////////////////////////////////////////////////////////////////////////////////////////////////

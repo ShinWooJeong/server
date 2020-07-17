@@ -1,0 +1,45 @@
+{
+  "name": "restapi",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www --exec babel-node --presets @babel/preset-env",
+    "test": "cross-env NODE_ENV=test npm run migrate:reset && cross-env NODE_ENV=test npm run migrate &&  .\\node_modules\\.bin\\jest tests --coverage",
+    "migrate": "sequelize db:migrate",
+    "migrate:reset": "sequelize db:migrate:undo:all"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.10.4",
+    "bcrypt": "^5.0.0",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
+    "express": "~4.16.1",
+    "http-errors": "^1.8.0",
+    "http-status": "^1.4.2",
+    "jade": "~1.11.0",
+    "jest": "^26.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.27.0",
+    "morgan": "~1.9.1",
+    "pg": "^8.2.1",
+    "pg-hstore": "^2.3.3",
+    "random-string": "^0.2.0",
+    "sequelize": "^6.3.0",
+    "uuid4": "^2.0.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.4",
+    "@babel/core": "^7.10.4",
+    "@babel/node": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^26.1.0",
+    "cross-env": "^7.0.2",
+    "regenerator-runtime": "^0.13.5",
+    "supertest": "^4.0.2",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  }
+}
